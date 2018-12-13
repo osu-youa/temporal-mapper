@@ -53,12 +53,15 @@ def expand_data_representation(data_dict):
     pos_freqs[data_dict['index']] = data_dict['values']
     neg_freqs = np.conj(pos_freqs[::-1])
 
-    transform[1:n//2] = pos_freqs
-    transform[n//2+1:] = neg_freqs
+    transform[1:len(pos_freqs)+1] = pos_freqs
+    transform[-len(pos_freqs):] = neg_freqs
 
     rez = fft.ifft(transform)
 
     return rez
+
+def get_spectral_decomposition(array, num_freqs=3):
+    return expand_data_representation(shorten_data_representation(array, num_freqs=num_freqs))
 
 if __name__ == '__main__':
     test_vals = np.sin(np.pi*np.linspace(0, 5, 50))
