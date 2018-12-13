@@ -1,0 +1,11 @@
+<launch>
+	<param name="/use_sim_time" value="true"/>
+
+    <node name="temporal_data_gatherer" pkg="explorer" type="world_publisher.py" />
+    <node name="temporal_map_publisher" pkg="explorer" type="temporal_map_publisher.py" />
+    <include file="$(find explorer)/launch/cartographer_isolated.launch" />
+
+</launch>
+
+<!-- rosbag record /scan /odom /tf_static /tf /mobile_base/sensors/imu_data -O temporal.bag -->
+<!-- rosbag play [- -clock] temporal.bag -->
