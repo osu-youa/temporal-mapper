@@ -63,11 +63,11 @@ def update_autocorrs():
         sort_index = np.argsort(ts_data[:, 0])
         ts_data = ts_data[sort_index]
 
-        interpolation = stats_autocorr.linearly_interpolate_data(ts_data[:, 0], ts_data[:, 1], INTERPOLATION_INTERVAL)
+        interpolation, steps, mask = stats_autocorr.linearly_interpolate_data(ts_data[:, 0], ts_data[:, 1], INTERPOLATION_INTERVAL)
         if len(interpolation) < 10:
             continue
 
-        _, autocorrs = stats_autocorr.get_autocorrelations_spectral(interpolation)
+        _, autocorrs = stats_autocorr.get_autocorrelations_spectral(interpolation, data_mask=mask)
 
         if len(autocorrs):
             autocorr = max(autocorrs)

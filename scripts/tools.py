@@ -10,7 +10,7 @@ data = {}
 
 def get_data(debug=False):
     if not data:
-        with open('/home/{}/temporal_data_idle.pickle'.format(getpass.getuser()), 'rb') as fh:
+        with open('/home/{}/temporal_data.pickle'.format(getpass.getuser()), 'rb') as fh:
             file_contents = cPickle.load(fh)
         global data
         data = file_contents
@@ -29,14 +29,14 @@ def check_point(x,y, plot=True, debug=False):
     sort_index = np.argsort(ts_data[:, 0])
     ts_data = ts_data[sort_index]
 
+    interpolation, steps, mask = stats_autocorr.linearly_interpolate_data(ts_data[:, 0], ts_data[:, 1], INTERPOLATION_INTERVAL)
 
+    periods_returned, autocorrs_returned = stats_autocorr.get_autocorrelations(interpolation, data_mask=mask)
+    periods_all, autocorrs_all = stats_autocorr.get_autocorrelations(interpolation, p_value_filter=1.0,
+                                                                     filter_negative=False, use_local_maxima=False,
+                                                                     data_mask=mask)
 
-    interpolation = stats_autocorr.linearly_interpolate_data(ts_data[:, 0], ts_data[:, 1], INTERPOLATION_INTERVAL)
-    steps = np.arange(ts_data[0,0], ts_data[-1,0], INTERPOLATION_INTERVAL)
-
-    periods_returned, autocorrs_returned = stats_autocorr.get_autocorrelations(interpolation)
-    periods_all, autocorrs_all = stats_autocorr.get_autocorrelations(interpolation, p_value_filter=1.0, filter_negative=False, use_local_maxima=False)
-
+    interpolation[~mask] = np.nan
 
     if plot:
         plt.subplot(2,1,1)
