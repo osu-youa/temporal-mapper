@@ -34,6 +34,6 @@ def stare_at_point_cluster(points, distance, candidates = 16):
         sum_squares.append(squared_distances.sum())
 
     final_rez_array = np.array([points_x, points_y, sum_squares]).T
-    sorted = final_rez_array[np.argsort(final_rez_array[2])]
+    sorted = final_rez_array[np.argsort(final_rez_array[:,2])]
 
     return sorted
