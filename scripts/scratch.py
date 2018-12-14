@@ -62,3 +62,34 @@ def visualize_data_sets(data_type='step', freq=3):
     plt.show()
     pdb.set_trace()
 
+
+def test_clustering_algorithm(variance=1.0, samples=50, debug=False):
+
+    default_colors = ['b', 'g', 'r', 'c', 'm', 'y', 'k', 'pink']
+
+    import hdbscan
+
+    means = [(1,1), (5,5), (3,0)]
+    data_samples = []
+    for mean in means:
+        data_samples.append(np.random.multivariate_normal(mean, np.diag(np.ones(len(mean))*variance), samples))
+
+    noise = []
+    for i in range(100):
+        noise.append(np.random.random(len(means[0]))*20-10)
+    data_samples.append(np.array(noise))
+
+    data = np.concatenate(data_samples)
+    categories = hdbscan.HDBSCAN(min_cluster_size=10).fit_predict(data)
+
+    for i, category in enumerate(np.unique(categories)):
+        ind = categories == category
+
+        plt.scatter(data[ind, 0], data[ind, 1], color=default_colors[i % len(default_colors)])
+
+    plt.show()
+
+    if debug:
+        pdb.set_trace()
+
+
