@@ -25,7 +25,7 @@
 
         <node name="rviz" pkg="rviz" type="rviz" required="true"
           args="-d $(find explorer
-              )/config/demo_turtlebot.rviz">
+              )/config/demo_turtlebot_temporal.rviz">
             <remap from="/tf" to="/carto/tf" />
             <remap from="/scan_matched_points2" to="/carto/scan_matched_points2" />
             <remap from="/trajectory_node_list" to="/carto/trajectory_node_list" />

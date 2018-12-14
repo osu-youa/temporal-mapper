@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Submaps1
         - /PointCloud21
+        - /Map1
       Splitter Ratio: 0.600670993
     Tree Height: 775
   - Class: rviz/Selection
@@ -213,26 +214,7 @@ Visualization Manager:
       Submaps:
         All: true
         Trajectory 0:
-          0.180: true
-          1.180: true
-          10.180: true
-          11.180: true
-          12.180: true
-          13.180: true
-          14.180: true
-          15.180: true
-          16.180: true
-          17.180: true
-          18.122: true
-          19.32: true
-          2.180: true
-          3.180: true
-          4.180: true
-          5.180: true
-          6.180: true
-          7.180: true
-          8.180: true
-          9.180: true
+          0.7: true
           Value: true
       Topic: /submap_list
       Tracking frame: base_link
@@ -276,6 +258,16 @@ Visualization Manager:
         Trajectory 0: true
       Queue Size: 100
       Value: true
+    - Alpha: 0.699999988
+      Class: rviz/Map
+      Color Scheme: map
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /temporal_map
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 100; 100; 100
@@ -310,7 +302,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.00999999978
-      Scale: 86.6787338
+      Scale: 59.0691261
       Target Frame: <Fixed Frame>
       Value: TopDownOrtho (rviz)
       X: 2.87493086

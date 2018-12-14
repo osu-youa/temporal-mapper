@@ -8,15 +8,15 @@ from geometry_msgs.msg import Point, Pose, Quaternion
 import xml.etree.ElementTree as ET
 import getpass
 
-CYCLE_TIME = 10.0
+CYCLE_TIME = 5.0
 OBJECTS = {
     'door_stopper': {
-        'interval': [1.0, 3.0],
+        'interval': [1.0, 2.5],
         'pose': (0, 0, 0),
         'sdf': ''
     },
     'door_stopper_0': {
-        'interval': [9.0, 1.0],
+        'interval': [3.0, 4.5],
         'pose': (0, 0, 0),
         'sdf': ''
     },

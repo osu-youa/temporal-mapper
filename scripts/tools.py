@@ -11,7 +11,7 @@ data = {}
 
 def get_data(debug=False):
     if not data:
-        with open('/home/{}/temporal_data_20181212.pickle'.format(getpass.getuser()), 'rb') as fh:
+        with open('/home/{}/temporal_data_20181213.pickle'.format(getpass.getuser()), 'rb') as fh:
             file_contents = cPickle.load(fh)
         global data
         data = file_contents
@@ -42,7 +42,21 @@ def check_point(x,y, plot=True, debug=False):
     periods_all, autocorrs_all = stats_autocorr.get_autocorrelations(interpolation, p_value_filter=1.0,
                                                                      filter_negative=False, use_local_maxima=False,
                                                                      data_mask=mask)
-    candidate_autocorrs = autocorrs_all[candidate_periods - 1]
+    # Hack: Sometimes the candidate period is the length of the data, in which case
+    # there's no autocorrelation
+
+    candidate_autocorrs = []
+    candidate_periods = candidate_periods[candidate_periods < len(interpolation)]
+    for period in candidate_periods:
+        try:
+            index = np.where(periods_all == period)[0][0]
+            candidate_autocorrs.append(autocorrs_all[index])
+        except IndexError:
+            candidate_autocorrs.append(np.nan)
+
+    candidate_autocorrs = np.array(candidate_autocorrs)
+
+
 
     interpolation[~mask] = np.nan
 
@@ -50,7 +64,7 @@ def check_point(x,y, plot=True, debug=False):
         plt.subplot(2,1,1)
         plt.plot(steps, interpolation)
         plt.plot(steps, decomp, linestyle=':', color='green' )
-        plt.title('Observations')
+        plt.title('Observations ({}, {})'.format(x,y))
         plt.xlabel('Time')
         plt.ylabel('Occupancy')
 

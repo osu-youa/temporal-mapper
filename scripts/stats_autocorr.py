@@ -103,7 +103,9 @@ def get_autocorrelations(data, limit_steps_max = None, limit_steps = None, p_val
 
         data_to_keep = ~np.isnan(orig_data) & ~np.isnan(shift_data)
         if data_to_keep.sum() < 10:
+            info.append((period, np.nan, np.nan))
             continue
+
 
         autocorr, p_val = stats.pearsonr(orig_data[data_to_keep], shift_data[data_to_keep])
         info.append((period, autocorr, p_val))

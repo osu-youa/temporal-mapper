@@ -7,7 +7,7 @@
     <arg name="movement_noise" default="0" />
 
 
-    <node pkg="map_server" type="map_server" name="map_server" args=" $(find explorer)/files/whippu_dungeon.map.yaml" output="screen"></node>
+    <node pkg="map_server" type="map_server" name="map_server" args=" $(find explorer)/files/whippu_dungeon.map.yaml" output="screen" />
     <node pkg="amcl" type="amcl" name="localization">
         <!--<param name="use_map_topic" value="true" />-->
         <!--<remap from="map" to="map"/>-->
